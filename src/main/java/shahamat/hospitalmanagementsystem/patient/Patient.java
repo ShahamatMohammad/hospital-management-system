@@ -1,5 +1,6 @@
 package shahamat.hospitalmanagementsystem.patient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Patient {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +28,8 @@ public class Patient {
     private String address;
     private int age;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "doctor_patient",
             joinColumns = @JoinColumn(name = "patient_id"),
@@ -34,7 +37,8 @@ public class Patient {
     )
     private List<Doctor> doctors;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "patient_disease",
             joinColumns = @JoinColumn(name = "patient_id"),
@@ -42,7 +46,8 @@ public class Patient {
     )
     private List<Disease> diseases;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 }

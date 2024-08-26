@@ -16,6 +16,10 @@ public class SecretaryDTO {
     private String phone;
     private String email;
     private int yearsOfExperience;
+
+    @JsonIgnore
     private Long doctorId;  // Storing only the ID of the doctor
+
+    @JsonIgnore
     private Long hospitalId;  // Storing only the ID of the hospital
 }

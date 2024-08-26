@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import shahamat.hospitalmanagementsystem.secretary.Secretary;
 
 import java.util.List;
 
@@ -52,32 +53,37 @@ public class HospitalController {
     }
 
     @PostMapping("/{hospitalId}/patients/{patientId}")
-    public ResponseEntity<Hospital> addPatientToHospital(@PathVariable Long hospitalId, @PathVariable Long patientId) {
-        return new ResponseEntity<>(hospitalService.addPatientToHospital(hospitalId, patientId), HttpStatus.OK);
+    public ResponseEntity<String> addPatientToHospital(@PathVariable Long hospitalId, @PathVariable Long patientId) {
+        String resultMessage = hospitalService.addPatientToHospital(hospitalId, patientId);
+        return new ResponseEntity<>(resultMessage, HttpStatus.OK);
     }
 
     @PostMapping("/{hospitalId}/employees/{employeeId}")
-    public ResponseEntity<Hospital> addEmployeeToHospital(@PathVariable Long hospitalId, @PathVariable Long employeeId) {
-        return new ResponseEntity<>(hospitalService.addEmployeeToHospital(hospitalId, employeeId), HttpStatus.OK);
+    public ResponseEntity<String> addEmployeeToHospital(@PathVariable Long hospitalId, @PathVariable Long employeeId) {
+        String message = hospitalService.addEmployeeToHospital(hospitalId, employeeId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping("/{hospitalId}/secretaries/{secretaryId}")
-    public ResponseEntity<Hospital> addSecretaryToHospital(@PathVariable Long hospitalId, @PathVariable Long secretaryId) {
+    public ResponseEntity<String> addSecretaryToHospital(@PathVariable Long hospitalId, @PathVariable Long secretaryId) {
         return new ResponseEntity<>(hospitalService.addSecretaryToHospital(hospitalId, secretaryId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{hospitalId}/patients/{patientId}")
-    public ResponseEntity<Hospital> removePatientFromHospital(@PathVariable Long hospitalId, @PathVariable Long patientId) {
-        return new ResponseEntity<>(hospitalService.removePatientFromHospital(hospitalId, patientId), HttpStatus.OK);
+    @DeleteMapping("/patients/{patientId}")
+    public ResponseEntity<String> removePatientFromHospital(@PathVariable Long patientId) {
+        String resultMessage = hospitalService.removePatientFromHospital(patientId);
+        return new ResponseEntity<>(resultMessage, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{hospitalId}/employees/{employeeId}")
-    public ResponseEntity<Hospital> removeEmployeeFromHospital(@PathVariable Long hospitalId, @PathVariable Long employeeId) {
-        return new ResponseEntity<>(hospitalService.removeEmployeeFromHospital(hospitalId, employeeId), HttpStatus.OK);
+
+    @DeleteMapping("/employees/{employeeId}")
+    public ResponseEntity<String> removeEmployeeFromHospital(@PathVariable Long employeeId) {
+        String message = hospitalService.removeEmployeeFromHospital(employeeId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{hospitalId}/secretaries/{secretaryId}")
-    public ResponseEntity<Hospital> removeSecretaryFromHospital(@PathVariable Long hospitalId, @PathVariable Long secretaryId) {
-        return new ResponseEntity<>(hospitalService.removeSecretaryFromHospital(hospitalId, secretaryId), HttpStatus.OK);
+    @DeleteMapping("/secretaries/{secretaryId}")
+    public ResponseEntity<String> removeSecretaryFromHospital(@PathVariable Long secretaryId) {
+        return new ResponseEntity<>(hospitalService.removeSecretaryFromHospital(secretaryId), HttpStatus.OK);
     }
 }

@@ -39,7 +39,7 @@ public class Doctor {
     )
     private List<Hospital> hospitals;
 
-    @OneToOne(mappedBy = "doctor", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "doctor")
     @JsonManagedReference
     private Secretary secretary;
 

@@ -1,0 +1,169 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa; /* Light background for a clean look */
+    color: #212529; /* Standard text color */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6; /* Comfortable line height for better readability */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #343a40; /* Dark color for headings */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Navigation Bar */
+.navbar {
+    margin-bottom: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+}
+
+/* Forms */
+form {
+    background-color: #ffffff; /* White background for forms */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for a subtle 3D effect */
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Blue focus outline */
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #007bff; /* Primary color for buttons */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade for hover state */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+button:active {
+    background-color: #004085; /* Even darker shade for active state */
+    transform: translateY(0); /* Reset transform on active */
+}
+
+/* Sections */
+section {
+    margin-bottom: 40px;
+    padding: 20px; /* Added padding for better spacing */
+}
+
+/* Content Display Areas */
+#hospitalsList,
+#hospitalDetails,
+#hospitalsByNameList,
+#hospitalsByLocationList,
+#hospitalsByCapacityList {
+    background-color: #e9ecef; /* Light grey background for content areas */
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+}
+
+/* Footer */
+footer {
+    background-color: #343a40; /* Dark footer background */
+    color: #ffffff; /* White text for contrast */
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+        font-size: 0.9rem;
+    }
+}

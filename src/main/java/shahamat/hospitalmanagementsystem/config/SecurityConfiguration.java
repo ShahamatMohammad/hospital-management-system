@@ -25,7 +25,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
+    private static final String[] WHITE_LIST_URL = {
+            "/api/v1/auth/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -35,7 +36,21 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "/doctors/**",
+            "/patients/**",
+            "/diseases/**",
+            "/appointments/**",
+            "/secretaries",
+            "/hospitals/**",
+            "/employees/**",
+            "/swagger-ui.html",
+            // Add the paths to the static resources
+            "/index.html",          // Allow access to index.html (removed /static prefix)
+            "/css/**",              // Allow access to CSS files
+            "/js/**",               // Allow access to JavaScript files
+            "/static/**",           // Allow access to other static resources if needed
+    };
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;

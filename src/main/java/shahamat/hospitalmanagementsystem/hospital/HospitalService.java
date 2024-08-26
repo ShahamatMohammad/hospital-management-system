@@ -52,6 +52,7 @@ public class HospitalService {
 
     // Find hospitals by location
     public List<Hospital> findByLocation(String location) {
+
         return hospitalRepository.findByLocation(location);
     }
 
@@ -69,60 +70,85 @@ public class HospitalService {
         }
     }
 
-    // Associate patient with a hospital
-    public Hospital addPatientToHospital(Long hospitalId, Long patientId) {
-        Hospital hospital = findById(hospitalId);
+    // Associate patient with a hospital and return a message
+    public String addPatientToHospital(Long hospitalId, Long patientId) {
+        Hospital hospital = findById(hospitalId); // Assume findById() is a method to retrieve Hospital by id
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new CustomException("Patient not found", HttpStatus.NOT_FOUND, 2005));
+
         patient.setHospital(hospital);
         patientRepository.save(patient);
-        return hospital;
+
+        return "Patient, " + patient.getFirstName() + " " + patient.getLastName() + " has been successfully added to hospital " + hospital.getName() + ".";
     }
 
+
     // Associate employee with a hospital
-    public Hospital addEmployeeToHospital(Long hospitalId, Long employeeId) {
+    public String addEmployeeToHospital(Long hospitalId, Long employeeId) {
         Hospital hospital = findById(hospitalId);
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new CustomException("Employee not found", HttpStatus.NOT_FOUND, 2007));
         employee.setHospital(hospital);
         employeeRepository.save(employee);
-        return hospital;
+        return employee.getFirstName() + " " + employee.getLastName() + " has been assigned to hospital: " + hospital.getName();
     }
 
+
     // Associate secretary with a hospital
-    public Hospital addSecretaryToHospital(Long hospitalId, Long secretaryId) {
+    public String addSecretaryToHospital(Long hospitalId, Long secretaryId) {
         Hospital hospital = findById(hospitalId);
         Secretary secretary = secretaryRepository.findById(secretaryId)
                 .orElseThrow(() -> new CustomException("Secretary not found", HttpStatus.NOT_FOUND, 2008));
         secretary.setHospital(hospital);
         secretaryRepository.save(secretary);
-        return hospital;
-    }
+        return secretary.getFirstName() + " " +  secretary.getLastName() +  " has been associate with : " + secretary.getHospital().getName();}
 
     // Remove patient from hospital
-    public Hospital removePatientFromHospital(Long hospitalId, Long patientId) {
+    public String removePatientFromHospital(Long patientId) {
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new CustomException("Patient not found", HttpStatus.NOT_FOUND, 2005));
+
+        if (patient.getHospital() == null) {
+            throw new CustomException("Patient is not associated with any hospital", HttpStatus.BAD_REQUEST, 2006);
+        }
+
+        String hospitalName = patient.getHospital().getName();
         patient.setHospital(null);
         patientRepository.save(patient);
-        return findById(hospitalId);
+
+        return "Patient, " + patient.getFirstName() + " " + patient.getLastName() + " has been successfully removed from hospital " + hospitalName + ".";
     }
+
 
     // Remove employee from hospital
-    public Hospital removeEmployeeFromHospital(Long hospitalId, Long employeeId) {
+    public String removeEmployeeFromHospital(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new CustomException("Employee not found", HttpStatus.NOT_FOUND, 2007));
+
+        String hospitalName = employee.getHospital() != null ? employee.getHospital().getName() : "No hospital";
+
         employee.setHospital(null);
         employeeRepository.save(employee);
-        return findById(hospitalId);
+
+        return "Employee, " + employee.getFirstName() + " " + employee.getLastName() + " has been removed from hospital: " + hospitalName;
     }
 
+
     // Remove secretary from hospital
-    public Hospital removeSecretaryFromHospital(Long hospitalId, Long secretaryId) {
+    public String removeSecretaryFromHospital(Long secretaryId) {
         Secretary secretary = secretaryRepository.findById(secretaryId)
                 .orElseThrow(() -> new CustomException("Secretary not found", HttpStatus.NOT_FOUND, 2008));
+
+        // Check if the secretary is not associated with any hospital
+        if (secretary.getHospital() == null) {
+            throw new CustomException(secretary.getFirstName() + " " +  secretary.getLastName() +" is not associated with any hospital", HttpStatus.BAD_REQUEST, 2009);
+        }
+
+        String hospitalName = secretary.getHospital().getName();
         secretary.setHospital(null);
         secretaryRepository.save(secretary);
-        return findById(hospitalId);
+
+        return "Secretary, " + secretary.getFirstName() + " " +  secretary.getLastName() +  " has been removed from: " + hospitalName;
     }
+
 }
